@@ -13,6 +13,8 @@
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "build": "tsc",
+    "find:groups": "tsx src/scripts/findGroups.ts",
+    "generate:keywords": "tsx src/scripts/generateKeywords.ts",
     "start": "node dist/main.js"
   },
   "devDependencies": {
@@ -25,9 +27,6 @@
     "csv-parse": "^7.0.3",
     "csv-stringify": "^6.9.0",
     "dotenv": "^18.0.7",
-    "express": "^5.3.0",
-    "input": "^1.0.1",
-    "telegram": "^2.26.22",
-    "teleproto": "^1.230.0"
+    "express": "^5.3.0"
   }
 }
