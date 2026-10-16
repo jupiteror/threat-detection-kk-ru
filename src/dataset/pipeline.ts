@@ -1,9 +1,7 @@
 import { writeCsv, readKeywords, candidateColumns } from "./csv";
 import { preprocess } from "../preprocessing/preprocess";
 import { generateCandidates } from "../keywords/keywordMatcher";
-import type { RawRecord } from "../types/dataset";
-
-
+import type { RawRecord } from "./types/dataset.type";
 
 export async function runPipeline(
   raw: RawRecord[],

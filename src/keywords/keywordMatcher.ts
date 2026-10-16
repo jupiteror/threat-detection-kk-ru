@@ -3,7 +3,7 @@ import type {
   CleanRecord,
   Keyword,
   ThreatSubtype,
-} from "../types/dataset";
+} from "../dataset/types/dataset.type";
 export function matchKeywords(
   record: CleanRecord,
   keywords: readonly Keyword[],
@@ -14,7 +14,7 @@ export function matchKeywords(
       k.review_status === "APPROVED" &&
       (record.language === "MIXED" || k.language === record.language) &&
       haystack.includes(k.keyword.toLocaleLowerCase()),
-  );    
+  );
   if (!hits.length) return undefined;
   return {
     ...record,

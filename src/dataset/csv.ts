@@ -8,7 +8,7 @@ import type {
   Language,
   RawRecord,
   ThreatSubtype,
-} from "../types/dataset";
+} from "./types/dataset.type";
 
 const LANGUAGES = new Set<Language>(["RU", "KK", "MIXED"]);
 const THREAT_SUBTYPES = new Set<ThreatSubtype>([
@@ -39,7 +39,6 @@ const REVIEW_STATUSES = new Set<Keyword["review_status"]>([
   "REJECTED",
   "AMBIGUOUS",
 ]);
-
 
 export async function writeCsv<T extends object>(
   path: string,
@@ -82,7 +81,9 @@ function parseKeyword(value: unknown, line: number): Keyword {
   if (!REVIEW_STATUSES.has(reviewStatus as Keyword["review_status"])) {
     throw new Error(`Invalid review_status at keywords.csv line ${line}`);
   }
-  if (requiredString(row, "threat_family", line) !== "HATE_AND_DISCRIMINATION") {
+  if (
+    requiredString(row, "threat_family", line) !== "HATE_AND_DISCRIMINATION"
+  ) {
     throw new Error(`Invalid threat_family at keywords.csv line ${line}`);
   }
 

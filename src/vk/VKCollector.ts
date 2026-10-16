@@ -1,12 +1,7 @@
 import { VKConnector } from "./VKConnector";
-import type { RawRecord } from "../types/dataset";
+import type { RawRecord } from "../dataset/types/dataset.type";
+import { CollectorOptions } from "./types/connector.type";
 
-export interface CollectorOptions {
-  perRequest?: number;
-  includeComments?: boolean;
-  maxCommentsPerPost?: number;
-  maxRepliesPerComment?: number;
-}
 export class VKCollector {
   public constructor(
     private readonly vk: VKConnector,
@@ -24,7 +19,10 @@ export class VKCollector {
       throw new Error("At least one VK group ID is required");
     }
 
-    const perRequest = Math.min(Math.max(this.options.perRequest ?? 100, 1), 100);
+    const perRequest = Math.min(
+      Math.max(this.options.perRequest ?? 100, 1),
+      100,
+    );
     const collectedAt = new Date().toISOString();
     for (const ownerId of ownerIds) {
       for (let offset = 0; result.length < target; offset += perRequest) {
@@ -44,7 +42,11 @@ export class VKCollector {
             });
           if (this.options.includeComments && result.length < target) {
             const maxComments = this.options.maxCommentsPerPost ?? 100;
-            for (let commentOffset = 0; commentOffset < maxComments && result.length < target; commentOffset += 100) {
+            for (
+              let commentOffset = 0;
+              commentOffset < maxComments && result.length < target;
+              commentOffset += 100
+            ) {
               const commentCount = Math.min(100, maxComments - commentOffset);
               const comments = await this.vk.wallGetComments(
                 ownerId,
@@ -54,18 +56,18 @@ export class VKCollector {
               );
               for (const comment of comments.items) {
                 if (comment.text.trim() && result.length < target) {
-                result.push({
-                  record_id: `vk-comment-${ownerId}-${item.id}-${comment.id}`,
-                  source: "vk",
-                  source_type: "comment",
-                  source_url: `https://vk.com/wall${ownerId}_${item.id}?reply=${comment.id}`,
-                  source_group_id: ownerId,
-                  source_item_id: comment.id,
-                  source_parent_id: item.id,
-                  published_at: new Date(comment.date * 1_000).toISOString(),
-                  collected_at: collectedAt,
-                  text: comment.text,
-                });
+                  result.push({
+                    record_id: `vk-comment-${ownerId}-${item.id}-${comment.id}`,
+                    source: "vk",
+                    source_type: "comment",
+                    source_url: `https://vk.com/wall${ownerId}_${item.id}?reply=${comment.id}`,
+                    source_group_id: ownerId,
+                    source_item_id: comment.id,
+                    source_parent_id: item.id,
+                    published_at: new Date(comment.date * 1_000).toISOString(),
+                    collected_at: collectedAt,
+                    text: comment.text,
+                  });
                 }
 
                 for (const reply of comment.thread?.items ?? []) {

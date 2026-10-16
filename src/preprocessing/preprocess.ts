@@ -1,4 +1,8 @@
-import type { CleanRecord, Language, RawRecord } from "../types/dataset";
+import type {
+  CleanRecord,
+  Language,
+  RawRecord,
+} from "../dataset/types/dataset.type";
 
 // Большая часть букв у русского и казахского языков общая, поэтому общий
 // кириллический диапазон нельзя использовать как признак русского языка.

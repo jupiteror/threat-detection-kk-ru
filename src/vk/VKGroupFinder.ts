@@ -1,5 +1,5 @@
-import type { VKGroup } from "./VKConnector";
 import { VKConnector, VKApiError } from "./VKConnector";
+import type { VKGroup } from "./types/connector.type";
 
 export interface GroupCandidate {
   source_id: string;

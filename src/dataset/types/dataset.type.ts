@@ -24,7 +24,11 @@ export interface RawRecord {
   text: string;
   language_hint?: Language;
 }
-export interface CleanRecord extends RawRecord { clean_text: string; anonymized_text: string; language: Language; }
+export interface CleanRecord extends RawRecord {
+  clean_text: string;
+  anonymized_text: string;
+  language: Language;
+}
 export type KeywordType =
   | "EXACT"
   | "PHRASE"
@@ -35,11 +39,7 @@ export type KeywordType =
   | "MIXED"
   | "ANTONYM_CONTEXT";
 
-export type ReviewStatus =
-  | "PENDING"
-  | "APPROVED"
-  | "REJECTED"
-  | "AMBIGUOUS";
+export type ReviewStatus = "PENDING" | "APPROVED" | "REJECTED" | "AMBIGUOUS";
 
 export interface Keyword {
   keyword_id: string;
@@ -52,4 +52,9 @@ export interface Keyword {
   review_status: ReviewStatus;
   review_comment: string;
 }
-export interface CandidateRecord extends CleanRecord { candidate_id: string; matched_keyword_ids: string[]; target_subtypes: ThreatSubtype[]; candidate_status: "candidate" | "reviewed"; }
+export interface CandidateRecord extends CleanRecord {
+  candidate_id: string;
+  matched_keyword_ids: string[];
+  target_subtypes: ThreatSubtype[];
+  candidate_status: "candidate" | "reviewed";
+}
