@@ -8,3 +8,7 @@ models/artifacts/*
 !models/artifacts/.gitkeep
 models/reports/*
 !models/reports/.gitkeep
+.requirements.txt
+.requirements-xlmr.txt
+.requirements-labse.txt
+.requirements-base.txt
